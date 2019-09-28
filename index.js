@@ -14,7 +14,7 @@ render(){
     const {usuarios} = this.props;
 return(
     <ul>
-        {usuarios.map(usuario => <li>Este es el usuario {usuario}</li>)}
+        {usuarios.map((usuario,index) => (<li key={index}>Este es el usuario {usuario}</li>))}
     </ul>
 );
 }
@@ -28,19 +28,35 @@ constructor(props){
  que tiene Component dentro HolaReact o los componentes que hayamos creado, esto es sencial
  a la hora de trabajar con proopiedades y luego con estados */
     super(props);
+
     this.state = {
         mostrarListado:true
     };
-
 }
+
+showListado(){
+this.setState({ mostrarListado:!this.state.mostrarListado});
+}
+
+renderListado(usuarios){
+const { mostrarListado } = this.state;
+
+if(mostrarListado){
+    return <Listado usuarios={usuarios} />;
+}else{
+    return <h2>No hay Listado Disponible...</h2>;
+}
+}
+
  render(){
     /*  destructuramos,creamos una variable con este nombre que me traiga la misma inforemacion que tiene este objeto */
 /* const { lenguaje } = this.props; */
+
  const usuarios = [1,2,3,4];
      return (
      <div>
-    <Listado usuarios={usuarios} />
-    <button onClick={() => this.setState({mostrarListado:!this.state.mostrarListado})} >Mostrar listados</button>
+    {this.renderListado(usuarios)}
+    <button onClick={() => this.showListado()}>Mostrar Listado</button>
      </div>
      );
  }

@@ -30658,8 +30658,10 @@ function (_Component) {
     key: "render",
     value: function render() {
       var usuarios = this.props.usuarios;
-      return _react.default.createElement("ul", null, usuarios.map(function (usuario) {
-        return _react.default.createElement("li", null, "Este es el usuario ", usuario);
+      return _react.default.createElement("ul", null, usuarios.map(function (usuario, index) {
+        return _react.default.createElement("li", {
+          key: index
+        }, "Este es el usuario ", usuario);
       }));
     }
   }]);
@@ -30689,6 +30691,26 @@ function (_Component2) {
   }
 
   _createClass(HolaReact, [{
+    key: "showListado",
+    value: function showListado() {
+      this.setState({
+        mostrarListado: !this.state.mostrarListado
+      });
+    }
+  }, {
+    key: "renderListado",
+    value: function renderListado(usuarios) {
+      var mostrarListado = this.state.mostrarListado;
+
+      if (mostrarListado) {
+        return _react.default.createElement(Listado, {
+          usuarios: usuarios
+        });
+      } else {
+        return _react.default.createElement("h2", null, "No hay Listado Disponible...");
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -30697,15 +30719,11 @@ function (_Component2) {
 
       /* const { lenguaje } = this.props; */
       var usuarios = [1, 2, 3, 4];
-      return _react.default.createElement("div", null, _react.default.createElement(Listado, {
-        usuarios: usuarios
-      }), _react.default.createElement("button", {
+      return _react.default.createElement("div", null, this.renderListado(usuarios), _react.default.createElement("button", {
         onClick: function onClick() {
-          return _this2.setState({
-            mostrarListado: !_this2.state.mostrarListado
-          });
+          return _this2.showListado();
         }
-      }, "Mostrar listados"));
+      }, "Mostrar Listado"));
     }
   }]);
 
@@ -30744,7 +30762,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54840" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61022" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
